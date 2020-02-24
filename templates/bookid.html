@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% block title %}BookId{% endblock %}
+{% block content %}
+{% endblock %}
+{% block body %}
+
+
+
+{% if request.method == "GET" %}
+<div class="row">
+  <div class="col">
+    <div class="alert alert-secondary">
+        <div class="container">
+          <h1 class="display-4">"{{book.title}}"</h1>
+          <p class="lead">{{book.author}}</p>
+          <p><small>ISBN: {{book.isbn}}</small></p>
+          <p><small>Year:{{book.year}} </small></p>
+          <p><small>Average site rating: {{"{0:.2f}".format(average_site_rate)}} </small></p>
+        </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="col">
+      <div class="alert alert-secondary">
+          <div class="container">
+            <h1 class="display-4">Goodreads review</h1>
+            <p class="leads">Average rating: {{book_rate}}</p>
+            <p class="leads">Work rating counts: {{book_ratings}}</p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<form method="POST" class="form-border">
+  <div>
+    <input type="radio" name="options" id="1" value="1"> 1 Star </input>
+    <input type="radio" name="options" id="2" value="2"> 2 Stars </input>
+    <input type="radio" name="options" id="3" value="3"> 3 Stars </input>
+    <input type="radio" name="options" id="4" value="4"> 4 Stars </input>
+    <input type="radio" name="options" id="5" value="5"> 5 Stars </input>
+  </div>
+  <div class="form-group">
+  <textarea name="review" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Submit a review..."></textarea>
+  <button type="submit" class="btn btn-light">Submit</button>
+  </div>
+</form>
+
+{% for r in revs %}
+<div class="alert alert-secondary">
+  <div class="container">
+    <h6>{{ r.username }}</h6>
+    <p class="lead">{{ r.text }}</p>
+    <div class="float-right">
+    <p><small>{{ r.rating }} Stars</small></p>
+    </div>
+    <hr>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
